@@ -2,5 +2,4 @@ bot:
     host: "localhost"
     port: 25566
 plugin:
-    host: "localhost"
     port: 25567

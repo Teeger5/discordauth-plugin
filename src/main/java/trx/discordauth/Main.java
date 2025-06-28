@@ -2,6 +2,9 @@ package trx.discordauth;
 
 import org.bukkit.Server;
 import org.bukkit.plugin.java.JavaPlugin;
+import trx.discordauth.socketcomm.plugin.ConfigValues;
+import trx.discordauth.socketcomm.shared.Receiver;
+import trx.discordauth.socketcomm.shared.SocketCommand;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -17,13 +20,11 @@ public class Main extends JavaPlugin {
 	@Override
 	public void onEnable() {
 		LOGGER = getLogger();
-		getLogger().severe("Discord Auth Plugin Enabled!");
-		var logger = Logger.getLogger("Minecraft");
+		getLogger().info("Discord Auth Plugin Enabled!");
 		saveDefaultConfig();
 		ConfigValues.initialize(this);
-		getServer().getPluginManager().registerEvents(new JoinListener(), this);
-		logger.warning("DiscordAuth betöltve");
-		new Thread(() -> initBotReceiver(getServer()).listen()).start();
+		getServer().getPluginManager().registerEvents(new EventListener(), this);
+		new Thread(() -> initBotReceiver(getServer()).listen(ConfigValues.PLUGIN_PORT)).start();
 	}
 
 	@Override
@@ -38,7 +39,7 @@ public class Main extends JavaPlugin {
 	private Receiver initBotReceiver (Server server) {
 		var receiver = new Receiver();
 
-		receiver.registerSocketCommandTask(SocketCommands.AUTH_SUCCESS, uuid -> {
+		receiver.registerSocketCommandTask(SocketCommand.AUTH_SUCCESS, uuid -> {
 			var player = getServer().getPlayer(UUID.fromString(uuid));
 			if (player != null) {
 				getAuthorizedPlayers().add(uuid);
@@ -46,10 +47,17 @@ public class Main extends JavaPlugin {
 			}
 		});
 
-		receiver.registerSocketCommandTask(SocketCommands.AUTH_USER_NOT_FOUND, uuid -> {
+		receiver.registerSocketCommandTask(SocketCommand.USER_NOT_FOUND, uuid -> {
 			var player = getServer().getPlayer(UUID.fromString(uuid));
 			if (player != null) {
 				player.sendMessage("A játék megkezdéséhez előbb regisztrálnod kell a .. helyen.");
+			}
+		});
+
+		receiver.registerSocketCommandTask(SocketCommand.AUTH_INITIATED, uuid -> {
+			var player = getServer().getPlayer(UUID.fromString(uuid));
+			if (player != null) {
+				player.sendMessage("A bot üzenetet küldött neked Discordon. Kattints a rajta lévő gombra a hitelesítéshez!");
 			}
 		});
 

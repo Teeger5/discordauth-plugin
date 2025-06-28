@@ -1,11 +1,14 @@
-package trx.discordauth;
+package trx.discordauth.socketcomm.plugin;
+
+import trx.discordauth.socketcomm.shared.SocketCommand;
 
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.UUID;
 
-import static trx.discordauth.ConfigValues.*;
+import static trx.discordauth.Main.LOGGER;
+import static trx.discordauth.socketcomm.plugin.ConfigValues.*;
 
 public class BotNotifier {
 
@@ -14,7 +17,7 @@ public class BotNotifier {
 	 * @param playerUUID játékos UUID
 	 */
 	public static void sendUUIDToAuth(UUID playerUUID) {
-		sendMessage(AUTH_REQUEST + "," + playerUUID);
+		sendMessage(SocketCommand.AUTH_REQUEST, playerUUID.toString());
 	}
 
 	/**
@@ -22,7 +25,11 @@ public class BotNotifier {
 	 * @param playerUUID játékos UUID
 	 */
 	public static void sendAuthSuccessConfirmation(UUID playerUUID) {
-		sendMessage(AUTH_REQUEST + "," + playerUUID);
+		sendMessage(SocketCommand.AUTH_CONFIRM_SUCCESS, playerUUID.toString());
+	}
+
+	private static void sendMessage(SocketCommand command, String payload) {
+		sendMessage(command + "," + payload);
 	}
 
 	/**

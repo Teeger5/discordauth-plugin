@@ -1,4 +1,4 @@
-package trx.discordauth;
+package trx.discordauth.socketcomm.shared;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -7,25 +7,25 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.*;
 import java.util.concurrent.Executors;
-
-import static trx.discordauth.ConfigValues.*;
+import java.util.logging.Logger;
 
 public class Receiver {
-	private final Map<SocketCommands, List<SocketTask>> socketCommandTasks;
+	private static Logger log = Logger.getLogger(Receiver.class.getName());
+	private final Map<SocketCommand, List<SocketTask>> socketCommandTasks;
 
 	public Receiver() {
 		socketCommandTasks = new HashMap<>();
 	}
 
-	public void registerSocketCommandTask(SocketCommands socketCommand, SocketTask task) {
+	public void registerSocketCommandTask(SocketCommand socketCommand, SocketTask task) {
 		if (!socketCommandTasks.containsKey(socketCommand)) {
 			socketCommandTasks.put(socketCommand, new ArrayList<>());
 		}
 		socketCommandTasks.get(socketCommand).add(task);
 	}
 
-	public void listen () {
-		try (ServerSocket serverSocket = new ServerSocket(25567)) {
+	public void listen (int port) {
+		try (ServerSocket serverSocket = new ServerSocket(port)) {
 			var executorService = Executors.newSingleThreadExecutor();
 			while (true) {
 				try (Socket client = serverSocket.accept();
@@ -36,7 +36,7 @@ public class Receiver {
 						var parts = line.split(",");
 
 						try {
-							var command = SocketCommands.valueOf(parts[0]);
+							var command = SocketCommand.valueOf(parts[0]);
 							var uuid = parts[1];
 							var tasks = socketCommandTasks.get(command);
 							if (tasks != null) {
@@ -46,7 +46,7 @@ public class Receiver {
 							}
 						}
 						catch (IllegalArgumentException e) {
-							LOGGER.severe("Hiba: parancs -> SocketCommands: " + e.getMessage());
+							log.severe("Hiba: parancs -> SocketCommands: " + e.getMessage());
 							e.printStackTrace();
 						}
 					}
