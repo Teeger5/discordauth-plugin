@@ -2,6 +2,7 @@ package trx.discordauth.authtypes;
 
 import org.bukkit.Server;
 import org.bukkit.event.Listener;
+import org.bukkit.plugin.java.JavaPlugin;
 import trx.discordauth.authtypes.authverse.Authverse;
 import trx.discordauth.authtypes.freezer.Freezer;
 import trx.discordauth.socketcomm.shared.Receiver;
@@ -27,8 +28,8 @@ public enum AuthType {
 		return methodInstance.getEventListener();
 	}
 
-	public Receiver getReceiver (Server server) {
-		return methodInstance.getReceiver(server);
+	public Receiver getReceiver (JavaPlugin plugin) {
+		return methodInstance.getReceiver(plugin);
 	}
 
 	/**

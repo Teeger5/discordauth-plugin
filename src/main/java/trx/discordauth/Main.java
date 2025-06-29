@@ -25,7 +25,7 @@ public class Main extends JavaPlugin {
 			var authType = AuthType.parseConfigValue(ConfigValues.AUTH_TYPE);
 			getServer().getPluginManager().registerEvents(authType.getEventListener(), this);
 			new Thread(() ->
-					authType.getReceiver(getServer()).listen(ConfigValues.PLUGIN_PORT)
+					authType.getReceiver(this).listen(ConfigValues.PLUGIN_PORT)
 			).start();
 		}
 		catch (Exception e) {

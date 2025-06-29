@@ -5,6 +5,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
+import org.bukkit.plugin.java.JavaPlugin;
 import trx.discordauth.ConfigValues;
 import trx.discordauth.Main;
 import trx.discordauth.authtypes.AuthMethod;
@@ -32,33 +33,36 @@ public class Authverse implements AuthMethod {
 	}
 
 	@Override
-	public Receiver getReceiver(Server server) {
+	public Receiver getReceiver(JavaPlugin plugin) {
 		var receiver = new Receiver();
 
 		receiver.registerSocketCommandTask(SocketCommand.AUTH_SUCCESS, uuid -> {
-			var player = server.getPlayer(UUID.fromString(uuid));
+			var player = Bukkit.getPlayer(UUID.fromString(uuid));
 			if (player != null) {
-				var location = getLogoutLocation(player.getUniqueId());
-				player.sendMessage("Hitelesítés kész, jó játékot!");
-				if (location != null) {
-					player.teleport(location);
-				}
-				else {
-					var spaawn = server.getWorlds().get(0).getSpawnLocation();
-					player.teleport(spaawn);
-				}
+				Bukkit.getScheduler().runTask(plugin, () -> {
+
+					var location = getLogoutLocation(player.getUniqueId());
+					player.sendMessage("Hitelesítés kész, jó játékot!");
+					if (location != null) {
+						player.teleport(location);
+					}
+					else {
+						var spaawn = Bukkit.getWorlds().get(0).getSpawnLocation();
+						player.teleport(spaawn);
+					}
+				});
 			}
 		});
 
 		receiver.registerSocketCommandTask(SocketCommand.USER_NOT_FOUND, uuid -> {
-			var player = server.getPlayer(UUID.fromString(uuid));
+			var player = Bukkit.getPlayer(UUID.fromString(uuid));
 			if (player != null) {
 				player.sendMessage("A játék megkezdéséhez előbb regisztrálnod kell a .. helyen.");
 			}
 		});
 
 		receiver.registerSocketCommandTask(SocketCommand.AUTH_INITIATED, uuid -> {
-			var player = server.getPlayer(UUID.fromString(uuid));
+			var player = Bukkit.getPlayer(UUID.fromString(uuid));
 			if (player != null) {
 				player.sendMessage("A bot üzenetet küldött neked Discordon. Kattints a rajta lévő gombra a hitelesítéshez!");
 			}
@@ -71,9 +75,10 @@ public class Authverse implements AuthMethod {
 	public void  setup() {
 		locations = YamlConfiguration.loadConfiguration(new File(locationsYmlName));
 		var worldFolder = new File(Bukkit.getWorldContainer(), ConfigValues.AUTH_WORLD_NAME);
-		if (worldFolder.exists()) {
+		if (worldFolder.exists() && Bukkit.getWorld(ConfigValues.AUTH_WORLD_NAME) != null) {
 			return;
 		}
+		Bukkit.getLogger().info("WGenerating world");
 		var worldCreator = new WorldCreator(ConfigValues.AUTH_WORLD_NAME);
 		worldCreator.type(WorldType.FLAT);
 		var world = worldCreator.createWorld();
