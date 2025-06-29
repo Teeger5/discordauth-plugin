@@ -86,7 +86,7 @@ public class Authverse implements AuthMethod {
 	}
 
 	public static Location getLogoutLocation (UUID playerUUID) {
-		String uuid = playerUUID.toString().replace("-", "");
+		String uuid = playerUUID.toString();
 
 		if (!locations.contains(uuid)) return null;
 
