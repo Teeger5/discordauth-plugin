@@ -14,13 +14,13 @@ public class AuthverseEventListener implements Listener {
 	public void onPlayerJoin(PlayerJoinEvent event) {
 //		event.getPlayer().sendMessage("Authverse event listener on join");
 		var authWorld = Bukkit.getWorld(ConfigValues.AUTH_WORLD_NAME);
-		Bukkit.getLogger().info("Available worlds: ");
+/*		Bukkit.getLogger().info("Available worlds: ");
 		for (World w : Bukkit.getWorlds()) {
 			Bukkit.getLogger().info("\t" + w.getName());
 		}
 		Bukkit.getLogger().info("Auth world name config: " + ConfigValues.AUTH_WORLD_NAME);
 		Bukkit.getLogger().info("Auth world: " + authWorld);
-		Bukkit.getLogger().info("Auth World spawn: " + authWorld.getSpawnLocation());
+		Bukkit.getLogger().info("Auth World spawn: " + authWorld.getSpawnLocation());*/
 		event.getPlayer().teleport(authWorld.getSpawnLocation());
 	}
 
