@@ -2,14 +2,10 @@ package trx.discordauth;
 
 import org.bukkit.plugin.java.JavaPlugin;
 import trx.discordauth.authtypes.AuthType;
-import trx.discordauth.authtypes.freezer.FreezerEventListener;
-import trx.discordauth.socketcomm.shared.Receiver;
-import trx.discordauth.socketcomm.shared.SocketCommand;
+import trx.discordauth.authtypes.PlayerJoinCommonEventListener;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.UUID;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Main extends JavaPlugin {
@@ -24,6 +20,7 @@ public class Main extends JavaPlugin {
 		getLogger().info("Discord Auth Plugin Enabled!");
 		saveDefaultConfig();
 		ConfigValues.initialize(this);
+		getServer().getPluginManager().registerEvents(new PlayerJoinCommonEventListener(), this);
 		try {
 			var authType = AuthType.parseConfigValue(ConfigValues.AUTH_TYPE);
 			getServer().getPluginManager().registerEvents(authType.getEventListener(), this);

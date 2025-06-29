@@ -1,9 +1,9 @@
 package trx.discordauth.socketcomm.bot;
 
-import trx.discordauth.Main;
 import trx.discordauth.socketcomm.shared.SocketCommand;
 
-import java.io.*;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.logging.Logger;
 

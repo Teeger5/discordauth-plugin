@@ -16,12 +16,7 @@ public class FreezerEventListener implements Listener {
 
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event) {
-		UUID uuid = event.getPlayer().getUniqueId();
-
-		BotNotifier.sendUUIDToAuth(uuid);
-
-		event.getPlayer().sendMessage("Üdv újra! A folytatáshoz hitelesítsd magad " +
-				"Discordon a bot által küldött üzeneten lévő gomb megnyomásával");
+		event.getPlayer().sendMessage("Freezer listener on join");
 	}
 
 

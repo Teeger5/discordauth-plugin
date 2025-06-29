@@ -2,7 +2,6 @@ package trx.discordauth;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
-import trx.discordauth.authtypes.AuthType;
 
 public class ConfigValues {
 	public static String BOT_HOST;

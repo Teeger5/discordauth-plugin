@@ -4,5 +4,5 @@ bot:
 plugin:
     port: 25567
 auth:
-    type: "freeze"
-    world_name: "auth_world"
+    type: "freeze" # freezer | authworld
+    world_name: "world_auth"

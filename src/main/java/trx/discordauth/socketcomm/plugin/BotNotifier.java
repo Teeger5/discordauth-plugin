@@ -7,8 +7,9 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.UUID;
 
+import static trx.discordauth.ConfigValues.BOT_HOST;
+import static trx.discordauth.ConfigValues.BOT_PORT;
 import static trx.discordauth.Main.LOGGER;
-import static trx.discordauth.ConfigValues.*;
 
 /**
  * Üzenetek küldése a botnak
