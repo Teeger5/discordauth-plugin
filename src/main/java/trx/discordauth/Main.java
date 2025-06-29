@@ -36,7 +36,11 @@ public class Main extends JavaPlugin {
 		return AUTHORIZED_PLAYERS;
 	}
 
-	private Receiver initBotReceiver (Server server) {
+	/**
+	 * Bot felől érkező parancsokra történő műveletek beállítása
+	 * @return az elkészült Receiver példány
+	 */
+	private Receiver initBotReceiver (S) {
 		var receiver = new Receiver();
 
 		receiver.registerSocketCommandTask(SocketCommand.AUTH_SUCCESS, uuid -> {

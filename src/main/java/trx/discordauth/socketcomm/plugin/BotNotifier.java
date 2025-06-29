@@ -10,6 +10,9 @@ import java.util.UUID;
 import static trx.discordauth.Main.LOGGER;
 import static trx.discordauth.socketcomm.plugin.ConfigValues.*;
 
+/**
+ * Üzenetek küldése a botnak
+ */
 public class BotNotifier {
 
 	/**

@@ -1,5 +1,9 @@
 package trx.discordauth.socketcomm.shared;
 
+/**
+ * Socketen keresztüli kommunikációkor használható parancsok
+ * a plugin és a bot között
+ */
 public enum SocketCommand {
 
 	// Plugin küldi, bot fogadja
