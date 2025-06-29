@@ -13,11 +13,11 @@ import trx.discordauth.socketcomm.plugin.BotNotifier;
 import java.util.UUID;
 
 public class FreezerEventListener implements Listener {
-
+/*
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event) {
 		event.getPlayer().sendMessage("Freezer listener on join");
-	}
+	}*/
 
 
 	@EventHandler
