@@ -18,6 +18,14 @@ akkor DM üzenetet küld neki
 7. A plugin értesíti a botot a sikeres belépésről
 8. A bot erről üzenetet küld a játékosnak
 
+## 2 mód a hitelesítésre való várakozásra
+**Játékos megfagyasztása**\
+Ekkor a játékos nem tud mozogni, nem tud interakciókat kezdeni, és sérthetetlen.
+
+**Külön hitelesítési világ használata várakozásra**\
+Ekkor a játékos csatlakozáskor egy hitelesítési várakozó vilgába kerül,
+ahonnan a hitelesítéskor átteleportál az eredeti helyére, ahol kilépett
+
 ### SocketCommand
 Ebben az enumban a plugin és a bot között küldhető parancsok vannak
 
