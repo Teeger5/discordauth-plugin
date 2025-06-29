@@ -8,7 +8,7 @@ import java.net.Socket;
 import java.util.UUID;
 
 import static trx.discordauth.Main.LOGGER;
-import static trx.discordauth.socketcomm.plugin.ConfigValues.*;
+import static trx.discordauth.ConfigValues.*;
 
 /**
  * Üzenetek küldése a botnak

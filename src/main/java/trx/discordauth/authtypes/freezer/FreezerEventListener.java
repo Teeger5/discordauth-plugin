@@ -1,4 +1,4 @@
-package trx.discordauth;
+package trx.discordauth.authtypes.freezer;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -7,11 +7,12 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import trx.discordauth.Main;
 import trx.discordauth.socketcomm.plugin.BotNotifier;
 
 import java.util.UUID;
 
-public class EventListener implements Listener {
+public class FreezerEventListener implements Listener {
 
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event) {
